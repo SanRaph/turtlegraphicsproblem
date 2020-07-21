@@ -2,6 +2,7 @@ public class Pen {
     private PenPosition positionOfThePen;
 
     public Pen(){
+
         this.positionOfThePen = PenPosition.UP;
     }
 
@@ -10,6 +11,7 @@ public class Pen {
     }
 
     public PenPosition getPositionOfThePen() {
+
         return positionOfThePen;
     }
 }

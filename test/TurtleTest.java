@@ -6,110 +6,95 @@ import static org.junit.jupiter.api.Assertions.*;
 
 //TODO: complete and review this test
 class TurtleTest {
-
-    Turtle ipaja;
+    Turtle ijapa;
     Pen biro;
+    SketchPad pad;
 
     @BeforeEach
-    void setUp() {
-        ipaja = new Turtle();
+    void setUp() throws Exception {
+        ijapa = new Turtle();
         biro = new Pen();
-        ipaja.setTurtlePen(biro);
-    }
-
-    @AfterEach
-    void tearDown() {
+        ijapa.setTurtlePen(biro);
+        pad = new SketchPad();
     }
 
     @Test
-    void createTurtle(){
-        assertEquals(0, ipaja.getxCoord());
-        assertEquals(0, ipaja.getyCoord());
-        assertEquals(PenPosition.UP, ipaja.getTurtlePen().getPositionOfThePen());
+    void createTurtle() {
+        assertEquals(0, ijapa.getxCoordinate());
+        assertEquals(0, ijapa.getyCoordinate());
+        assertEquals(PenPosition.UP, ijapa.getTurtlePen().getPositionOfThePen());
+        assertEquals(CardinalDirection.NORTH, ijapa.getDirection());
     }
 
     @Test
-    void moveForwardWithPenUPTest(){
-        assertEquals(0, ipaja.getxCoord());
-        assertEquals(0, ipaja.getyCoord());
-        assertEquals(PenPosition.UP, ipaja.getTurtlePen().getPositionOfThePen());
-        assertEquals(CardinalDirection.NORTH, ipaja.getDirection());
-
-
-        ipaja.moveForward(7);
-
-        assertEquals(6, ipaja.getxCoord());
-        assertEquals(0, ipaja.getyCoord());
-
+    void putPenDown() {
+        assertEquals(PenPosition.UP, ijapa.getTurtlePen().getPositionOfThePen());
+        ijapa.changePenPosition(PenPosition.DOWN);
+        assertEquals(PenPosition.DOWN, ijapa.getTurtlePen().getPositionOfThePen());
     }
 
     @Test
-    void draw(){
-        int steps
-        ipaja.changePenPosition(PenPosition.DOWN);
-        ipaja.draw(pad.getFloor(), steps);
-
-            for (int j = 0; j < steps; j ++){
-                assertEquals(1, pad.getFloor()[0][j]);
-            }
-
-    }
-
-    @Test
-    void turtleRightWhenFacingNorth(){
-        assertEquals(CardinalDirection.EAST, ipaja.getDirection());
-    }
-
-    @Test
-    void turtleRightWhenFacingEast(){
-        assertEquals(CardinalDirection.EAST, ipaja.getDirection());
-        ipaja.turnRight();
-        assertEquals(CardinalDirection.SOUTH, ipaja.getDirection());
-    }
-
-    @Test
-    void turtleRightWhenFacingWest(){
-        assertEquals(CardinalDirection.EAST, ipaja.getDirection());
-        ipaja.turnRight();
-        assertEquals(CardinalDirection.NORTH, ipaja.getDirection());
-    }
-
-
-    @Test
-    void drawSquare(){
-        assertEquals(CardinalDirection.NORTH, ipaja.getDirection());
-        int steps = 12;
-        ipaja.draw(pad.getFloor(), steps);
-
-        ipaja.turnRight(); // East
-        ipaja.draw(pad.getFloor(), steps);
-
-        ipaja.turnRight(); // south
-        ipaja.draw(pad.getFloor(), steps);
-
-        ipaja.turnRight(); // West
-        ipaja.draw(pad.getFloor(), steps);
-
-        for (int i = 0; i < pad.getFloor().length; i ++){
-            for (int j = 0; j < pad.getFloor().length; j++){
-                if(pad.getFloor()[i][j] == 1){
-                    System.out.print("*");
-                } else{
-                    System.out.print("");
-                }
-            }
+    void draw() {
+        int steps = 7;
+        ijapa.draw(pad.getFloor(), steps);
+        for(int i = 0; i < steps; i++) {
+            assertEquals(1, pad.getFloor()[0][i]);
         }
-        System.out.print();
-
     }
+
     @Test
-    void putPenDown(){
-        assertEquals(PenPosition.UP, ipaja.getTurtlePen().getPositionOfThePen());
-        ipaja.changePenPosition(PenPosition.DOWN);
-        assertEquals(PenPosition.DOWN, ipaja.getTurtlePen().getPositionOfThePen());
+    void turnRightWhenFacingNorth() {
+        assertEquals(CardinalDirection.NORTH, ijapa.getDirection());
+        ijapa.turnRight();
+        assertEquals(CardinalDirection.EAST, ijapa.getDirection());
     }
 
+    @Test
+    void turnRightWhenFacingEast() {
+        ijapa.setDirection(CardinalDirection.EAST);
+        ijapa.turnRight();
+        assertEquals(CardinalDirection.SOUTH, ijapa.getDirection());
+    }
 
+    @Test
+    void turnRightWhenFacingSouth() {
+        ijapa.setDirection(CardinalDirection.SOUTH);
+        ijapa.turnRight();
+        assertEquals(CardinalDirection.WEST, ijapa.getDirection());
+    }
 
+    @Test
+    void turnRightWhenFacingWest() {
+        ijapa.setDirection(CardinalDirection.WEST);
+        ijapa.turnRight();
+        assertEquals(CardinalDirection.NORTH, ijapa.getDirection());
+    }
 
+    @Test
+    void drawSquare() {
+        assertEquals(CardinalDirection.NORTH, ijapa.getDirection());
+        int steps = 12;
+        ijapa.draw(pad.getFloor(), steps);
+
+        ijapa.turnRight();	//East
+        ijapa.draw(pad.getFloor(), steps);
+
+        ijapa.turnRight();	//South
+        ijapa.draw(pad.getFloor(), steps);
+
+        ijapa.turnRight();	//West
+        ijapa.draw(pad.getFloor(), steps);
+
+        for(int i = 0; i < pad.getFloor().length; i++) {
+            for(int j = 0; j < pad.getFloor().length; j++) {
+                if(pad.getFloor()[i][j] == 1) {
+                    System.out.print("*");
+                }else {
+                    System.out.print(" ");
+                }
+                System.out.print(" ");
+            }
+            System.out.println();
+        }
+    }
 }
