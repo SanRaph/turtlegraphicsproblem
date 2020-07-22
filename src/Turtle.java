@@ -5,12 +5,14 @@ public class Turtle {
 
     private int xCoordinate;
     private int yCoordinate;
+
     private CardinalDirection direction;
 
     private Pen turtlePen;
 
     public Turtle() {
         //this.direction = CardinalDirection.NORTH;
+        //TODO: passing enum right inside this
         this(CardinalDirection.NORTH);
     }
 
@@ -56,6 +58,7 @@ public class Turtle {
 
     /**
      * Helps the turtle turn right based on its current orientation
+     * @param
      */
     public void turnRight() {
         if(direction == CardinalDirection.NORTH) {
